@@ -29,12 +29,15 @@ while(True):
 
     #front = front_cascade.detectMultiScale(gray_img, 1.3, 5)
     #upper = upper_cascade.detectMultiScale(gray_img, 1.5, 9)
-    mouth = mouth_cascade.detectMultiScale(gray_img, 1.8, 1) # tested 1.3, 5 and 1.1,1 and 1.9, 1 and 1.5 and 2 and 1.7
-    glasses = glasses_cascade.detectMultiScale(gray_img, 1.8, 2) # tested 1.3, 5 and 1.1,2 and 1.9,2 and 1.5 and 2 and 1.7
+    mouth = mouth_cascade.detectMultiScale(gray_img, 1.9, 5) 
+    # tested 1.3, 5 and 1.1,1 and 1.9, 1 and 1.5 and 2 and 1.7
+    # tested 9 
+    glasses = glasses_cascade.detectMultiScale(gray_img, 1.8, 2) 
+    # tested 1.3, 5 and 1.1,2 and 1.9,2 and 1.5 and 2 and 1.7
 
-    largestA = 0
-    largestA2 = 0
-    largestA3 = 0
+    #largestA = 0
+    #largestA2 = 0
+    #largestA3 = 0
 
     #for (x, y, w, h) in front:
     #    area = w * h
@@ -44,16 +47,16 @@ while(True):
 
 
     for (x, y, w, h) in glasses:
-        area2 = w * h
-        if area2 > largestA2:
-            largestA2 = area2
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), thickness=2)
+        #area2 = w * h
+        #if area2 > largestA2:
+            #largestA2 = area2
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), thickness=2)
 
     for (x, y, w, h) in mouth:
-        area3 = w * h
-        if area3 > largestA3:
-            largestA3 = area3
-            cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), thickness=2)
+        #area3 = w * h
+        #if area3 > largestA3:
+            #largestA3 = area3
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0, 255, 0), thickness=2)
 
 
     #for (x, y, w, h) in back:
