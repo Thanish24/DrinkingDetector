@@ -1,7 +1,10 @@
 import cv2
 import time
 
-vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(1)
+
+lowHSV = (15, 81, 0)
+highHSV = (45, 255, 255) #(45, 255, 255)
 
 
 mouth_cascade = cv2.CascadeClassifier('src\CascadeClassifiers\haar-cascade-files-master\haarcascade_mcs_mouth.xml')
@@ -15,10 +18,18 @@ while(True):
     # by frame
     ret, frame = vid.read()
 
+    threshold_img = cv2.cvtColor(frame, cv2.COLOR_RGB2HSV)
+
+    filtered = cv2.inRange(threshold_img, lowHSV, highHSV)
+
+    masked = cv2.bitwise_and(frame, frame, mask=filtered)
+
+
     # Apply grayscale filtering
     gray_img = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
 
+    # run cascade detection
     mouth = mouth_cascade.detectMultiScale(gray_img, 1.9, 5) 
 
     glasses = glasses_cascade.detectMultiScale(gray_img, 1.8, 2) 
@@ -32,7 +43,7 @@ while(True):
 
 
     # Display the resulting frame
-    cv2.imshow('frame', frame)
+    cv2.imshow('frame', masked)
       
     # the 'q' button is set as the
     # quitting button you may use any
